@@ -4,7 +4,7 @@ TODO: Needs Review and Spec
 
 module.exports = {
 	upload: function (req, res) {
-		var cloudinary = require('cloudinary');
+		var cloudinary = require('keystone-cloudinary-s3-proxy');
 		var keystone = req.keystone;
 
 		if (req.files && req.files.file) {
@@ -35,7 +35,7 @@ module.exports = {
 		}
 	},
 	autocomplete: function (req, res) {
-		var cloudinary = require('cloudinary');
+		var cloudinary = require('keystone-cloudinary-s3-proxy');
 		var max = req.query.max || 10;
 		var prefix = req.query.prefix || '';
 		var next = req.query.next || null;
@@ -57,7 +57,7 @@ module.exports = {
 		});
 	},
 	get: function (req, res) {
-		var cloudinary = require('cloudinary');
+		var cloudinary = require('keystone-cloudinary-s3-proxy');
 		cloudinary.api.resource(req.query.id, function (result) {
 			if (result.error) {
 				res.json({ error: { message: result.error.message } });

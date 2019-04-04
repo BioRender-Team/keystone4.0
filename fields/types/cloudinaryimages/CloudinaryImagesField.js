@@ -48,17 +48,16 @@ module.exports = Field.create({
 		const thumbnails = props.value ? props.value.map((img, index) => {
 			return this.getThumbnail({
 				value: img,
-				imageSourceSmall: cloudinaryResize(img.public_id, {
+				imageSourceSmall: `${cloudinaryResize(img.public_id, {
 					...RESIZE_DEFAULTS,
 					height: 90,
-					secure: props.secure,
-				}),
-				imageSourceLarge: cloudinaryResize(img.public_id, {
+				})}#${img.url.split('#')[1]}`,
+				imageSourceLarge: `${cloudinaryResize(img.public_id, {
 					...RESIZE_DEFAULTS,
 					height: 600,
 					width: 900,
 					secure: props.secure,
-				}),
+				})}#${img.url.split('#')[1]}`,
 			}, index);
 		}) : [];
 		return { thumbnails, uploadFieldPath };
@@ -221,12 +220,12 @@ module.exports = Field.create({
 		if (!value || !value.length) return;
 
 		const images = value.map(image => ({
-			src: cloudinaryResize(image.public_id, {
+			src: `${cloudinaryResize(image.public_id, {
 				...RESIZE_DEFAULTS,
 				height: 600,
 				width: 900,
 				secure,
-			}),
+			})}#${image.url.split('#')[1]}`,
 		}));
 
 		return (

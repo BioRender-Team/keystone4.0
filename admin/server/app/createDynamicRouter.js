@@ -3,7 +3,7 @@ var express = require('express');
 
 var uploads = require('../../../lib/uploads');
 
-module.exports = function createDynamicRouter (keystone) {
+module.exports = function createDynamicRouter (keystone, customRoutes=[]) {
 	// ensure keystone nav has been initialised
 	// TODO: move this elsewhere (on demand generation, or client-side?)
 	if (!keystone.nav) {
@@ -71,6 +71,9 @@ module.exports = function createDynamicRouter (keystone) {
 		router.get('/api/cloudinary/autocomplete', require('../api/cloudinary').autocomplete);
 		router.post('/api/cloudinary/upload', require('../api/cloudinary').upload);
 	}
+	customRoutes.forEach((route) => {
+		router[route.type || 'get'](route.route, route.handler);
+	});
 	if (keystone.get('s3 config')) {
 		router.post('/api/s3/upload', require('../api/s3').upload);
 	}

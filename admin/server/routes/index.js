@@ -76,7 +76,7 @@ module.exports = function IndexRoute (req, res) {
 
 	var cloudinaryConfig = keystone.get('cloudinary config');
 	if (cloudinaryConfig) {
-		var cloudinary = require('cloudinary');
+		var cloudinary = require('keystone-cloudinary-s3-proxy');
 		var cloudinaryUpload = cloudinary.uploader.direct_upload();
 		keystoneData.cloudinary = {
 			cloud_name: keystone.get('cloudinary config').cloud_name,
