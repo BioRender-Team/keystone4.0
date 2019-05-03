@@ -51,6 +51,7 @@ module.exports = Field.create({
 				imageSourceSmall: `${cloudinaryResize(img.public_id, {
 					...RESIZE_DEFAULTS,
 					height: 90,
+					secure: props.secure,
 				})}#${img.url.split('#')[1]}`,
 				imageSourceLarge: `${cloudinaryResize(img.public_id, {
 					...RESIZE_DEFAULTS,
